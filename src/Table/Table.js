@@ -12,21 +12,30 @@ import './Table.css'
 export default props => {  
   
    
-   // console.log(props.state.sortType)
+   // console.log(props.state.data)
    
    return (
       // console.log(props.state.data.id)
       <Table striped bordered hover variant="dark">
          <thead>
             <tr>
-               <th>ID<small>{props.state.sortType === 'abc' 
-                  ? props.onSort(props.state, props.state.columns[0], 'abc')
-                  : props.onSort(props.state, props.state.columns[0], 'desc')
-               }</small></th>
-               <th onClick={() => {                 
-                  // props.onSort(props.state.columns[1])                 
-               }}>First Name<small>{'abc' ? 'cba' : 'abc'}</small></th>
-               <th onClick={() => {
+               <th onClick={() => props.onSort(props.state.columns[0])}>ID
+                  <small>{props.state.columnsName === props.state.columns[0]? props.state.sortType : null}</small>
+               </th>
+               <th onClick={() => props.onSort(props.state.columns[1])}>First Name
+                  <small>{props.state.sortType}</small>
+               </th>
+               <th onClick={() => props.onSort(props.state.columns[2])}>Last Name
+                  <small>{props.state.sortType}</small>
+               </th>
+               <th onClick={() => props.onSort(props.state.columns[3])}>Email
+                  <small>{props.state.sortType}</small>
+               </th>
+               <th onClick={() => props.onSort(props.state.columns[4])}>Phone
+                  <small>{props.state.sortType}</small>
+               </th>
+               
+               {/* <th onClick={() => {
                   props.onSort(props.state.columns[2])
                }}>Last Name</th>
                <th onClick={() => {
@@ -34,7 +43,7 @@ export default props => {
                }}>Email</th>
                <th onClick={() => {
                   props.onSort(props.state.columns[4])
-               }}>Phone</th>
+               }}>Phone</th> */}
             </tr>
          </thead>
          <tbody>

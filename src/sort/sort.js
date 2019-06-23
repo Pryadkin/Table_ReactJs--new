@@ -7,7 +7,6 @@ export default (data, nameColumn, direct) => {
       sortA = b;
       sortB = a;
     }
-    // console.log(nameColumn)
     
     if (isNaN(parseFloat(sortA[nameColumn]))) {            
 

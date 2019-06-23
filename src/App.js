@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     data: [],
     columns: [],
-    sortType: 'abc',
+    sortType: 'abs',
+    columnsName: null,
   }
 
   componentDidMount() {
@@ -20,22 +21,47 @@ class App extends Component {
     const columnsClone = Object.keys(dataClone[0]);   
 
     sort(dataClone, 'id' , 'abs');
-    
+   
     this.setState({
       data: dataClone,
       columns: columnsClone,
+      columnsName: columnsClone[0],
     })       
       
   }
       
     
-  onSort = (data, columns, direct) => {
-    console.log(columns, direct)
-    // sort(this.state.data, e.target.innerText, 'abs')
+  onSort = (columns) => {
+    const dataSort = [...this.state.data]
+    // console.log(dataSort)
+    // console.log(this.state.columnsName)
+    let direction = null;
+    if (columns === this.state.columnsName && this.state.sortType === 'abs') {
+      direction = 'desc';
+    } else {
+      direction = 'abs';
+    }
+      sort(dataSort, columns, direction);
+      // console.log(sort(dataSort, columns, 'desc'))
+      this.setState({
+        data: dataSort,
+        sortType: direction,
+      })
+    // } else {      
+    //   sort(dataSort, columns, 'abc');
+    //   console.log(sort(dataSort, columns, 'abc'))
+    //   this.setState({
+    //     data: dataSort,
+    //     sortType: 'abc'
+    //   })
+    // }
+    
+       
   }
   
 
   render() {
+    // console.log(this.state.data)
     return(
       <div>
         <TableComp 
