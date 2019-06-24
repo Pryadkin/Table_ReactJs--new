@@ -9,13 +9,9 @@ import './Table.css'
 
  
 
-export default props => {  
-  
-   
-   // console.log(props.state.data)
+export default props => {    
    
    return (
-      // console.log(props.state.data.id)
       <Table striped bordered hover variant="dark">
          <thead>
             <tr>
@@ -23,27 +19,17 @@ export default props => {
                   <small>{props.state.columnsName === props.state.columns[0]? props.state.sortType : null}</small>
                </th>
                <th onClick={() => props.onSort(props.state.columns[1])}>First Name
-                  <small>{props.state.sortType}</small>
+                  <small>{props.state.columnsName === props.state.columns[1]? props.state.sortType : null}</small>
                </th>
                <th onClick={() => props.onSort(props.state.columns[2])}>Last Name
-                  <small>{props.state.sortType}</small>
+                  <small>{props.state.columnsName === props.state.columns[2]? props.state.sortType : null}</small>
                </th>
                <th onClick={() => props.onSort(props.state.columns[3])}>Email
-                  <small>{props.state.sortType}</small>
+                  <small>{props.state.columnsName === props.state.columns[3]? props.state.sortType : null}</small>
                </th>
                <th onClick={() => props.onSort(props.state.columns[4])}>Phone
-                  <small>{props.state.sortType}</small>
-               </th>
-               
-               {/* <th onClick={() => {
-                  props.onSort(props.state.columns[2])
-               }}>Last Name</th>
-               <th onClick={() => {
-                  props.onSort(props.state.columns[3])
-               }}>Email</th>
-               <th onClick={() => {
-                  props.onSort(props.state.columns[4])
-               }}>Phone</th> */}
+                  <small>{props.state.columnsName === props.state.columns[4]? props.state.sortType : null}</small>
+               </th>               
             </tr>
          </thead>
          <tbody>

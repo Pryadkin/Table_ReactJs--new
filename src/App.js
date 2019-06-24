@@ -32,21 +32,26 @@ class App extends Component {
       
     
   onSort = (columns) => {
-    const dataSort = [...this.state.data]
-    // console.log(dataSort)
-    // console.log(this.state.columnsName)
+    const dataSort = [...this.state.data]    
     let direction = null;
+    
     if (columns === this.state.columnsName && this.state.sortType === 'abs') {
       direction = 'desc';
+      // this.setState({sortType: direction})
     } else {
       direction = 'abs';
+      // this.setState({sortType: direction})
     }
+    
+    // console.log(direction)
       sort(dataSort, columns, direction);
       // console.log(sort(dataSort, columns, 'desc'))
       this.setState({
         data: dataSort,
         sortType: direction,
+        columnsName: columns,
       })
+      
     // } else {      
     //   sort(dataSort, columns, 'abc');
     //   console.log(sort(dataSort, columns, 'abc'))
