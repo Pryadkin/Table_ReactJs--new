@@ -17,7 +17,10 @@ class App extends Component {
     onDoubleClick: false,
     id: null,
     currentColumn: null,
+    cellInputValue: null,
   }
+
+ 
 
   componentDidMount() {
     const dataClone = [...Json]; 
@@ -31,7 +34,7 @@ class App extends Component {
       columnsName: columnsClone[0],
     })       
       
-  }
+  }  
       
     
   onSort = (columns) => {
@@ -53,14 +56,31 @@ class App extends Component {
     })
   }
 
+
   onDoubleClick = (e, colNum) => {
-    // console.log(e.target.parentNode)
     this.setState({
       id: +e.target.parentNode.firstChild.innerText,
       currentColumn: colNum,
     })   
   }
   
+  onChange = (e) => {   
+    const newData = [...this.state.data];
+    
+    this.state.data.forEach((i, index) => {      
+      if (i.id === +e.target.parentNode.parentNode.firstChild.innerText) {  // проверка строки на id
+        if (this.state.data[index].id === i.id) { // проверка строки на позицию (index)
+          newData[index][this.state.columns[this.state.currentColumn]] = e.target.value;
+          this.setState({
+            data: newData,
+          })
+        }        
+      }
+    })
+    
+
+    
+  }
 
   render() {
     // console.log(this.state.columns)
@@ -70,6 +90,7 @@ class App extends Component {
           state={this.state}
           onSort={this.onSort}
           onDoubleClick={this.onDoubleClick}
+          onChange={this.onChange}
         />
       </div>
     )

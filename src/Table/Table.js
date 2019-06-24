@@ -32,9 +32,9 @@ export default props => {
                </th>               
             </tr>
          </thead>
-         <tbody>
+         <tbody onChange={e => props.onChange(e)}>
             {props.state.data.map((i, index) => {
-               console.log(props.state.columns[i.id - 1])
+               // console.log(props.state.columns[0])
                return( 
                <tr key={index}>
                   <td>{i[props.state.columns[0]]}</td>
