@@ -10,7 +10,7 @@ import './Table.css'
  
 
 export default props => {    
-   
+   // console.log(props.state.onDoubleClick)
    return (
       <Table striped bordered hover variant="dark">
          <thead>
@@ -34,15 +34,39 @@ export default props => {
          </thead>
          <tbody>
             {props.state.data.map((i, index) => {
-               // console.log(i)
+               console.log(props.state.columns[i.id - 1])
                return( 
                <tr key={index}>
-                  <td>{i.id}</td>
-                  <td>{i.firstName}</td>
-                  <td>{i.lastName}</td>
-                  <td>{i.email}</td>
-                  <td>{i.phone}</td>
+                  <td>{i[props.state.columns[0]]}</td>
+                  <td onDoubleClick={(e) => props.onDoubleClick(e, '1')}>
+                     {  i.id === props.state.id && props.state.currentColumn === '1'
+                        ? <input value={i[props.state.columns[1]]}/> 
+                        : i[props.state.columns[1]]  }
+                  </td>
+                  <td onDoubleClick={(e) => props.onDoubleClick(e, '2')}>
+                     {  i.id === props.state.id && props.state.currentColumn === '2'
+                        ? <input value={i[props.state.columns[2]]}/> 
+                        : i[props.state.columns[2]]  }
+                  </td>
+                  <td onDoubleClick={(e) => props.onDoubleClick(e, '3')}>
+                     {  i.id === props.state.id && props.state.currentColumn === '3'
+                        ? <input value={i[props.state.columns[3]]}/> 
+                        : i[props.state.columns[3]]  }
+                  </td>
+                  <td onDoubleClick={(e) => props.onDoubleClick(e, '4')}>
+                     {  i.id === props.state.id && props.state.currentColumn === '4'
+                        ? <input value={i[props.state.columns[4]]}/> 
+                        : i[props.state.columns[4]]  }
+                  </td>
+                  
                </tr>
+               // <tr key={index}>
+               //    <td>{i.id}</td>
+               //    <td>{i.firstName}</td>
+               //    <td>{i.lastName}</td>
+               //    <td>{i.email}</td>
+               //    <td>{i.phone}</td>
+               // </tr>
                )
             })}                  
          </tbody>

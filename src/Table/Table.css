@@ -32,9 +32,7 @@ input {
    border-radius: 5px;
    cursor: pointer;
 }
-.contextMenu__rename {
-   /* background-color: red; */
-}
+
 .contextMenu__rename:hover .contextMenu__columns{
    display: block;
 }

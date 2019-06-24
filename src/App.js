@@ -14,11 +14,14 @@ class App extends Component {
     columns: [],
     sortType: 'abs',
     columnsName: null,
+    onDoubleClick: false,
+    id: null,
+    currentColumn: null,
   }
 
   componentDidMount() {
     const dataClone = [...Json]; 
-    const columnsClone = Object.keys(dataClone[0]);   
+    const columnsClone = Object.keys(dataClone[0]);  
 
     sort(dataClone, 'id' , 'abs');
    
@@ -37,41 +40,36 @@ class App extends Component {
     
     if (columns === this.state.columnsName && this.state.sortType === 'abs') {
       direction = 'desc';
-      // this.setState({sortType: direction})
     } else {
       direction = 'abs';
-      // this.setState({sortType: direction})
-    }
-    
-    // console.log(direction)
-      sort(dataSort, columns, direction);
-      // console.log(sort(dataSort, columns, 'desc'))
-      this.setState({
-        data: dataSort,
-        sortType: direction,
-        columnsName: columns,
-      })
-      
-    // } else {      
-    //   sort(dataSort, columns, 'abc');
-    //   console.log(sort(dataSort, columns, 'abc'))
-    //   this.setState({
-    //     data: dataSort,
-    //     sortType: 'abc'
-    //   })
-    // }
-    
-       
+    }    
+
+    sort(dataSort, columns, direction);
+
+    this.setState({
+      data: dataSort,
+      sortType: direction,
+      columnsName: columns,
+    })
+  }
+
+  onDoubleClick = (e, colNum) => {
+    // console.log(e.target.parentNode)
+    this.setState({
+      id: +e.target.parentNode.firstChild.innerText,
+      currentColumn: colNum,
+    })   
   }
   
 
   render() {
-    // console.log(this.state.data)
+    // console.log(this.state.columns)
     return(
       <div>
         <TableComp 
           state={this.state}
           onSort={this.onSort}
+          onDoubleClick={this.onDoubleClick}
         />
       </div>
     )
