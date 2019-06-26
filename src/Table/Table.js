@@ -11,6 +11,8 @@ import './Table.css'
 
 export default props => {    
    // console.log(props.state.onDoubleClick)
+   
+
    return (
       <Table striped bordered hover variant="dark">
          <thead>
@@ -32,11 +34,13 @@ export default props => {
                </th>               
             </tr>
          </thead>
-         <tbody onChange={e => props.onChange(e)}>
+         <tbody onChange={e => props.onChange(e)} onClick={e => props.onClick(e)}>
             {props.state.data.map((i, index) => {
                // console.log(props.state.columns[0])
+               // if ()
+               // className={colorTableRow}
                return( 
-               <tr key={index}>
+               <tr key={index} >
                   <td>{i[props.state.columns[0]]}</td>
                   <td onDoubleClick={(e) => props.onDoubleClick(e, '1')}>
                      {  i.id === props.state.id && props.state.currentColumn === '1'

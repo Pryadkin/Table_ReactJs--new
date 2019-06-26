@@ -76,10 +76,19 @@ class App extends Component {
           })
         }        
       }
-    })
-    
+    }) 
+  }
 
-    
+  onClick = (e) => {
+    console.log(e.target.parentNode.firstChild.innerText)
+    const cloneData = [...this.state.data]
+
+    if (this.state.data.id === e.target.parentNode.firstChild.innerText) {
+      cloneData.id = '##';
+      this.setState({
+        id: '##'
+      })
+    }
   }
 
   render() {
@@ -91,6 +100,7 @@ class App extends Component {
           onSort={this.onSort}
           onDoubleClick={this.onDoubleClick}
           onChange={this.onChange}
+          onClick={this.onClick}
         />
       </div>
     )
