@@ -56,8 +56,26 @@ class App extends Component {
     })
   }
 
+  setValueCurrentColumn(e) {
+    // console.log(e.target.innerText)
+    // console.log(e.target.parentNode.firstChild.innerText)
+    const cloneData = [...this.state.data];
+
+    this.state.data.forEach((i, index) => {      
+      if (i.id === +e.target.parentNode.firstChild.innerText) {  // получаем id выбранного элемента (i.id)
+        
+        if (this.state.data[index].id === i.id) { // получаем позицию строки выбранного элемента (index)
+          console.log(i.id)
+          cloneData[index][this.state.columns[this.state.currentColumn]] = e.target.value;
+          
+        }        
+      }
+    })
+    // console.log([this.state.columns[this.state.currentColumn]])
+  }
 
   onDoubleClick = (e, colNum) => {
+    
     this.setState({
       id: +e.target.parentNode.firstChild.innerText,
       currentColumn: colNum,
@@ -65,14 +83,14 @@ class App extends Component {
   }
   
   onChange = (e) => {   
-    const newData = [...this.state.data];
+    const cloneData = [...this.state.data];
     
     this.state.data.forEach((i, index) => {      
       if (i.id === +e.target.parentNode.parentNode.firstChild.innerText) {  // проверка строки на id
         if (this.state.data[index].id === i.id) { // проверка строки на позицию (index)
-          newData[index][this.state.columns[this.state.currentColumn]] = e.target.value;
+          cloneData[index][this.state.columns[this.state.currentColumn]] = e.target.value;
           this.setState({
-            data: newData,
+            data: cloneData,
           })
         }        
       }
@@ -80,7 +98,8 @@ class App extends Component {
   }
 
   onClick = (e) => {
-    console.log(e.target.parentNode.firstChild.innerText)
+    this.setValueCurrentColumn(e)
+    // console.log(e.target.parentNode.firstChild.innerText)
     const cloneData = [...this.state.data]
 
     if (this.state.data.id === e.target.parentNode.firstChild.innerText) {
