@@ -1,0 +1,11 @@
+.contextMenu {
+    position: absolute;
+    list-style-type: none;
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
+    border: 2px solid black;
+    position: absolute;  
+    border-radius: 5px;
+    cursor: pointer;
+ }

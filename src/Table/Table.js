@@ -36,11 +36,16 @@ export default props => {
          </thead>
          <tbody onChange={e => props.onChange(e)} onClick={e => props.onClick(e)}>
             {props.state.data.map((i, index) => {
-               // console.log(i)
-               let colorTableRow = null;
-               if (i.id === props.state.id) {
+
+               // (Click) при выборе нескольких элементов, их id помещаются в массив и осуществляется поиск через indexOf
+               let colorTableRow = null;  // color on the row             
+               if (i.id === props.state.arrowId[props.state.arrowId.indexOf(i.id)]) {
                   colorTableRow = 'table-warning'
-               }                  
+               }              
+
+               
+
+
                return( 
                <tr key={index} className={colorTableRow}>
                   <td>{i[props.state.columns[0]]}</td>
@@ -63,16 +68,8 @@ export default props => {
                      {  i.id === props.state.id && props.state.currentColumn === '4'
                         ? <input value={i[props.state.columns[4]]}/> 
                         : i[props.state.columns[4]]  }
-                  </td>
-                  
-               </tr>
-               // <tr key={index}>
-               //    <td>{i.id}</td>
-               //    <td>{i.firstName}</td>
-               //    <td>{i.lastName}</td>
-               //    <td>{i.email}</td>
-               //    <td>{i.phone}</td>
-               // </tr>
+                  </td>                  
+               </tr>   
                )
             })}                  
          </tbody>

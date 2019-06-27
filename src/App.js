@@ -7,7 +7,7 @@ import TableComp from './Table/Table'
 // import Table from './Table/Table'
 import sort from './sort/sort'
 
-
+let arr = [];
 class App extends Component {
   state = {
     data: [],
@@ -16,9 +16,10 @@ class App extends Component {
     columnsName: null,
     onDoubleClick: null,
     id: null,
+    arrowId: [],
     currentColumn: null,
     currentRow: null,
-    cellInputValue: null,
+    contextMenu: true,
   }
 
  
@@ -58,12 +59,10 @@ class App extends Component {
   }
 
   setValueCurrentElement(e, callback) {    
-    const cloneData = [...this.state.data];    
-
-    cloneData.forEach((item, index) => {      
+    this.state.data.forEach((item, index) => {      
       if (item.id === +e.target.parentNode.firstChild.innerText) {  // получаем id выбранного элемента (i.id)
         
-        if (cloneData[index].id === item.id) { // получаем позицию строки выбранного элемента (index)  
+        if (this.state.data[index].id === item.id) { // получаем позицию строки выбранного элемента (index)  
 
           const columnsClone = Object.keys(item) // получаем массив свойств объекта (наименований колонок)
           
@@ -83,11 +82,15 @@ class App extends Component {
   }
 
 
-  onClick = (e) => {    
-    if (e.ctrlKey) {
-      alert('hey')
+  onClick = (e) => {       
+     
+    if (e.ctrlKey) {           
+      arr.push(+e.target.parentNode.firstChild.innerText);      
+    } else {
+      arr = [];
+      arr[0] = +e.target.parentNode.firstChild.innerText;
     }
-    
+        
     this.setValueCurrentElement(e, item => {
       let column = this.state.currentColumn;
       // console.log(item.parentNode.firstChild.innerText)
@@ -98,6 +101,7 @@ class App extends Component {
       this.setState({
         currentColumn: column,
         id: +item.parentNode.firstChild.innerText,
+        arrowId: arr,
       })
 
     }) 
@@ -129,21 +133,29 @@ class App extends Component {
     }) 
   }
 
-
+  onContextMenu = (e) => {
+    // e.preventDefault();    
+  }
 
   
 
   render() {
-    // console.log(this.state.columns)
+    // console.log(this.state.arrowId)
+
+   
+
     return(
-      <div>
+      <div onContextMenu={e => this.onContextMenu(e)}>
         <TableComp 
           state={this.state}
           onSort={this.onSort}
           onDoubleClick={this.onDoubleClick}
           onChange={this.onChange}
-          onClick={this.onClick}
+          onClick={this.onClick}          
         />
+
+        <div className='contextMenu'></div>
+
       </div>
     )
   }
