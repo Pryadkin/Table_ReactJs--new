@@ -14,9 +14,10 @@ class App extends Component {
     columns: [],
     sortType: 'abs',
     columnsName: null,
-    onDoubleClick: false,
+    onDoubleClick: null,
     id: null,
     currentColumn: null,
+    currentRow: null,
     cellInputValue: null,
   }
 
@@ -56,8 +57,8 @@ class App extends Component {
     })
   }
 
-  setValueCurrentColumn(e) {    
-    const cloneData = [...this.state.data];
+  setValueCurrentElement(e, callback) {    
+    const cloneData = [...this.state.data];    
 
     cloneData.forEach((item, index) => {      
       if (item.id === +e.target.parentNode.firstChild.innerText) {  // получаем id выбранного элемента (i.id)
@@ -65,13 +66,12 @@ class App extends Component {
         if (cloneData[index].id === item.id) { // получаем позицию строки выбранного элемента (index)  
 
           const columnsClone = Object.keys(item) // получаем массив свойств объекта (наименований колонок)
-
+          
           for (let i = 0; i < columnsClone.length; i++) {
 
             if (item[columnsClone[i]] === e.target.innerText) { // по свойствам определяем значения свойств объекта и сравниваем с целевым объектом DOM дерева
               const currentItem = item[columnsClone[i]];
-              console.log(item[columnsClone[i]] )
-                           
+              callback(e.target)           
             }
             
           }
@@ -82,11 +82,35 @@ class App extends Component {
     }) /* forEach - end */
   }
 
+
+  onClick = (e) => {    
+    if (e.ctrlKey) {
+      alert('hey')
+    }
+    
+    this.setValueCurrentElement(e, item => {
+      let column = this.state.currentColumn;
+      // console.log(item.parentNode.firstChild.innerText)
+      if (e.target !== this.state.data) {
+        column = null;
+      }    
+
+      this.setState({
+        currentColumn: column,
+        id: +item.parentNode.firstChild.innerText,
+      })
+
+    }) 
+    // console.log(this.state.id)
+  }
+
+
   onDoubleClick = (e, colNum) => {
     
     this.setState({
       id: +e.target.parentNode.firstChild.innerText,
       currentColumn: colNum,
+      onDoubleClick: e.target,
     })   
   }
   
@@ -105,18 +129,9 @@ class App extends Component {
     }) 
   }
 
-  onClick = (e) => {
-    this.setValueCurrentColumn(e)
-    // console.log(e.target.parentNode.firstChild.innerText)
-    const cloneData = [...this.state.data]
 
-    // if (this.state.data.id === e.target.parentNode.firstChild.innerText) {
-    //   cloneData.id = '##';
-    //   this.setState({
-    //     id: '##'
-    //   })
-    // }
-  }
+
+  
 
   render() {
     // console.log(this.state.columns)

@@ -49,3 +49,11 @@ input {
    padding: 10px;
 }
 
+
+.table-warning {
+   color: black;
+}
+
+.table-warning:hover {
+   color: black !important;
+}

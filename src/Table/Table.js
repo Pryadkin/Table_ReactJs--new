@@ -36,11 +36,13 @@ export default props => {
          </thead>
          <tbody onChange={e => props.onChange(e)} onClick={e => props.onClick(e)}>
             {props.state.data.map((i, index) => {
-               // console.log(props.state.columns[0])
-               // if ()
-               // className={colorTableRow}
+               // console.log(i)
+               let colorTableRow = null;
+               if (i.id === props.state.id) {
+                  colorTableRow = 'table-warning'
+               }                  
                return( 
-               <tr key={index} >
+               <tr key={index} className={colorTableRow}>
                   <td>{i[props.state.columns[0]]}</td>
                   <td onDoubleClick={(e) => props.onDoubleClick(e, '1')}>
                      {  i.id === props.state.id && props.state.currentColumn === '1'
