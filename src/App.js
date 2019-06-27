@@ -56,22 +56,30 @@ class App extends Component {
     })
   }
 
-  setValueCurrentColumn(e) {
-    // console.log(e.target.innerText)
-    // console.log(e.target.parentNode.firstChild.innerText)
+  setValueCurrentColumn(e) {    
     const cloneData = [...this.state.data];
 
-    this.state.data.forEach((i, index) => {      
-      if (i.id === +e.target.parentNode.firstChild.innerText) {  // получаем id выбранного элемента (i.id)
+    cloneData.forEach((item, index) => {      
+      if (item.id === +e.target.parentNode.firstChild.innerText) {  // получаем id выбранного элемента (i.id)
         
-        if (this.state.data[index].id === i.id) { // получаем позицию строки выбранного элемента (index)
-          console.log(i.id)
-          cloneData[index][this.state.columns[this.state.currentColumn]] = e.target.value;
+        if (cloneData[index].id === item.id) { // получаем позицию строки выбранного элемента (index)  
+
+          const columnsClone = Object.keys(item) // получаем массив свойств объекта (наименований колонок)
+
+          for (let i = 0; i < columnsClone.length; i++) {
+
+            if (item[columnsClone[i]] === e.target.innerText) { // по свойствам определяем значения свойств объекта и сравниваем с целевым объектом DOM дерева
+              const currentItem = item[columnsClone[i]];
+              console.log(item[columnsClone[i]] )
+                           
+            }
+            
+          }
           
-        }        
+        }     
+
       }
-    })
-    // console.log([this.state.columns[this.state.currentColumn]])
+    }) /* forEach - end */
   }
 
   onDoubleClick = (e, colNum) => {
@@ -102,12 +110,12 @@ class App extends Component {
     // console.log(e.target.parentNode.firstChild.innerText)
     const cloneData = [...this.state.data]
 
-    if (this.state.data.id === e.target.parentNode.firstChild.innerText) {
-      cloneData.id = '##';
-      this.setState({
-        id: '##'
-      })
-    }
+    // if (this.state.data.id === e.target.parentNode.firstChild.innerText) {
+    //   cloneData.id = '##';
+    //   this.setState({
+    //     id: '##'
+    //   })
+    // }
   }
 
   render() {
