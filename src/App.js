@@ -3,9 +3,8 @@ import './App.css';
 import Json from './user.json';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import TableComp from './Table/Table'
-// import Loader from './Loader/Loader'
-// import Table from './Table/Table'
 import sort from './sort/sort'
+import ContextMenu from './Components/ContextMenu'
 
 let arr = [];
 class App extends Component {
@@ -19,7 +18,9 @@ class App extends Component {
     arrowId: [],
     currentColumn: null,
     currentRow: null,
-    contextMenu: true,
+    contextMenu: false,    
+    contextMenuTop: null, 
+    contextMenuleft: null, 
   }
 
  
@@ -134,14 +135,19 @@ class App extends Component {
   }
 
   onContextMenu = (e) => {
-    // e.preventDefault();    
+    e.preventDefault();
+    this.setState({
+      contextMenu: true,
+      contextMenuTop: e.clientY, 
+      contextMenuleft: e.clientX, 
+    })
   }
 
   
 
   render() {
-    // console.log(this.state.arrowId)
-
+    // console.log(this.state)
+    
    
 
     return(
@@ -154,7 +160,11 @@ class App extends Component {
           onClick={this.onClick}          
         />
 
-        <div className='contextMenu'></div>
+        {
+          this.state.contextMenu 
+          ? <ContextMenu state={this.state}/> 
+          : null
+        }
 
       </div>
     )

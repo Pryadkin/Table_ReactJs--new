@@ -1,11 +1,41 @@
 .contextMenu {
-    position: absolute;
+    position: absolute;    
     list-style-type: none;
     width: 200px;
     height: 200px;
-    background-color: lightgray;
+    padding: 5px 0 5px 10px;
+    /* background-color: lightgray; */
+    background-color: #1E1F1C;
+    color: #C7C7C7;
     border: 2px solid black;
     position: absolute;  
     border-radius: 5px;
     cursor: pointer;
  }
+
+
+
+.contextMenu__rename:hover {
+    color: white;
+}
+
+.contextMenu__rename:hover .contextMenu__columns{
+    display: block;    
+}
+.contextMenu__columns {
+    position: absolute;   
+    top: 0;
+    left: 100%;
+    width: 130px;
+    display: none;
+    list-style-type: none;
+    background-color: #1E1F1C;
+    color: #C7C7C7;
+    border: 2px solid black;
+    text-align: left;
+    padding: 10px;
+}
+
+.contextMenu__columns:hover li {
+    color: white;
+}

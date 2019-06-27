@@ -22,7 +22,7 @@ input {
 .color:hover {
    color: black !important; 
 }
-.contextMenu {
+/* .contextMenu {
    list-style-type: none;
    width: 200px;
    height: 200px;
@@ -31,9 +31,9 @@ input {
    position: absolute;  
    border-radius: 5px;
    cursor: pointer;
-}
+} */
 
-.contextMenu__rename:hover .contextMenu__columns{
+/* .contextMenu__rename:hover .contextMenu__columns{
    display: block;
 }
 .contextMenu__columns {
@@ -47,7 +47,7 @@ input {
    border: 2px solid black;
    text-align: left;
    padding: 10px;
-}
+} */
 
 
 .table-warning {
