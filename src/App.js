@@ -16,7 +16,7 @@ class App extends Component {
     onDoubleClick: null,
     id: null,
     arrowId: [],
-    currentColumn: null,
+    currentColumn: null, // Работатет по принципу: если клик произошел по той же строчке, то оставить выделение, инече снять.
     currentRow: null,
     contextMenu: false,    
     contextMenuTop: null, 
@@ -84,17 +84,24 @@ class App extends Component {
 
 
   onClick = (e) => {       
-     
-    if (e.ctrlKey) {           
-      arr.push(+e.target.parentNode.firstChild.innerText);      
+    const id = +e.target.parentNode.firstChild.innerText; 
+
+    if (e.ctrlKey) {
+      
+      if (arr.indexOf(id) !== -1) {
+        arr.splice(arr.indexOf(id), 1)
+      } else {
+        arr.push(id); 
+      }        
+           
     } else {
       arr = [];
-      arr[0] = +e.target.parentNode.firstChild.innerText;
+      arr[0] = id;
     }
-        
+
     this.setValueCurrentElement(e, item => {
       let column = this.state.currentColumn;
-      // console.log(item.parentNode.firstChild.innerText)
+
       if (e.target !== this.state.data) {
         column = null;
       }    
@@ -103,6 +110,7 @@ class App extends Component {
         currentColumn: column,
         id: +item.parentNode.firstChild.innerText,
         arrowId: arr,
+        contextMenu: null,
       })
 
     }) 
@@ -110,12 +118,13 @@ class App extends Component {
   }
 
 
-  onDoubleClick = (e, colNum) => {
-    
+  onDoubleClick = (e, colNum) => {   
+    console.log(colNum)
     this.setState({
       id: +e.target.parentNode.firstChild.innerText,
       currentColumn: colNum,
       onDoubleClick: e.target,
+      contextMenu: null,
     })   
   }
   
@@ -136,12 +145,42 @@ class App extends Component {
 
   onContextMenu = (e) => {
     e.preventDefault();
-    this.setState({
-      contextMenu: true,
-      contextMenuTop: e.clientY, 
-      contextMenuleft: e.clientX, 
-    })
+    const id = +e.target.parentNode.firstChild.innerText; 
+
+    // Создание массива id для выделенных элементов
+    if (e.ctrlKey) {
+      
+      if (arr.indexOf(id) !== -1) {
+        arr.splice(arr.indexOf(id), 1)
+      }
+      arr.push(id); 
+           
+           
+    } else {
+      arr = [];
+      arr[0] = id;
+    }  
+
+    this.setValueCurrentElement(e, item => {
+      let column = this.state.currentColumn;
+      
+      if (e.target !== this.state.data) {
+        column = null;
+      }    
+      
+      this.setState({
+        currentColumn: column,
+        id: +item.parentNode.firstChild.innerText,
+        arrowId: arr,
+        contextMenu: true,
+        contextMenuTop: e.pageY, 
+        contextMenuleft: e.pageX, 
+      })
+
+    }) 
   }
+
+  
 
   
 
@@ -162,7 +201,11 @@ class App extends Component {
 
         {
           this.state.contextMenu 
-          ? <ContextMenu state={this.state}/> 
+          ? <ContextMenu 
+            state={this.state}
+            onClick={(e, numCol) => this.onDoubleClick(e, numCol)}
+            autoFocus={true}
+          /> 
           : null
         }
 

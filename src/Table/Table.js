@@ -43,29 +43,30 @@ export default props => {
                   colorTableRow = 'table-warning'
                }              
 
-               
+               // console.log(props.state.arrowId)
+               // console.log(props.state.id)
 
 
-               return( 
+               return(                   
                <tr key={index} className={colorTableRow}>
                   <td>{i[props.state.columns[0]]}</td>
                   <td onDoubleClick={(e) => props.onDoubleClick(e, '1')}>
-                     {  i.id === props.state.id && props.state.currentColumn === '1'
-                        ? <input value={i[props.state.columns[1]]}/> 
+                     {  props.state.arrowId.indexOf(i.id) !== -1 && props.state.currentColumn === '1'
+                        ? <input  value={i[props.state.columns[1]]}/> 
                         : i[props.state.columns[1]]  }
                   </td>
                   <td onDoubleClick={(e) => props.onDoubleClick(e, '2')}>
-                     {  i.id === props.state.id && props.state.currentColumn === '2'
+                     {  props.state.arrowId.indexOf(i.id) !== -1 && props.state.currentColumn === '2'
                         ? <input value={i[props.state.columns[2]]}/> 
                         : i[props.state.columns[2]]  }
                   </td>
                   <td onDoubleClick={(e) => props.onDoubleClick(e, '3')}>
-                     {  i.id === props.state.id && props.state.currentColumn === '3'
+                     {  props.state.arrowId.indexOf(i.id) !== -1 && props.state.currentColumn === '3'
                         ? <input value={i[props.state.columns[3]]}/> 
                         : i[props.state.columns[3]]  }
                   </td>
                   <td onDoubleClick={(e) => props.onDoubleClick(e, '4')}>
-                     {  i.id === props.state.id && props.state.currentColumn === '4'
+                     {  props.state.arrowId.indexOf(i.id) !== -1 && props.state.currentColumn === '4'
                         ? <input value={i[props.state.columns[4]]}/> 
                         : i[props.state.columns[4]]  }
                   </td>                  
